@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Climate & Energy Dashboard - Interactive Data Visualization</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    
+    <!-- Chart.js Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <h1>India Climate & Energy Dashboard</h1>
+                </div>
+                <nav class="main-nav">
+                    <a href="#renewable-energy" class="nav-link">Renewable Energy</a>
+                    <a href="#power-sector" class="nav-link">Power Sector</a>
+                    <a href="#energy-flows" class="nav-link">Energy Flows</a>
+                    <a href="#emissions" class="nav-link">Emissions</a>
+                    <a href="#climate" class="nav-link">Climate</a>
+                    <a href="#water" class="nav-link">Water</a>
+                    <a href="#land" class="nav-link">Land Cover</a>
+                    <a href="#economy" class="nav-link">Economy</a>
+                    <a href="#demographics" class="nav-link">Demographics</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">India's Updated Nationally Determined Contribution (NDC)</h2>
+                <p class="hero-subtitle">Interactive visualization of India's climate action, renewable energy progress, and sustainable development indicators</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <i class="fas fa-bolt"></i>
+                        <div class="stat-value" data-count="462">0</div>
+                        <div class="stat-label">GW Total Capacity</div>
+                    </div>
+                    <div class="hero-stat">
+                        <i class="fas fa-solar-panel"></i>
+                        <div class="stat-value" data-count="209">0</div>
+                        <div class="stat-label">GW Renewable + Hydro</div>
+                    </div>
+                    <div class="hero-stat">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="stat-value" data-count="1734">0</div>
+                        <div class="stat-label">BUs Generation (FY24)</div>
+                    </div>
+                    <div class="hero-stat">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-value" data-count="1443">0</div>
+                        <div class="stat-label">Million Population</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Renewable Energy Section -->
+    <section id="renewable-energy" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-solar-panel"></i> Renewable Energy Progress</h2>
+                <div class="section-controls">
+                    <button class="btn-export" data-section="renewable-energy">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3>Installed Capacity by Source (GW)</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="installedCapacityChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Capacity Growth Trend (2015-2024)</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="capacityTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>Pipeline Capacity Distribution</h3>
+                <div class="chart-container" style="height: 400px;">
+                    <canvas id="pipelineCapacityChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Power Sector Overview -->
+    <section id="power-sector" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-industry"></i> Power Sector Overview</h2>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="generation">Generation</button>
+                <button class="tab-btn" data-tab="transmission">Transmission</button>
+                <button class="tab-btn" data-tab="distribution">Distribution</button>
+                <button class="tab-btn" data-tab="consumption">Consumption</button>
+            </div>
+
+            <div class="tab-content active" id="generation">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">462.00 GW</div>
+                            <div class="stat-label">Total Installed Capacity</div>
+                            <div class="stat-detail">As on Dec 2024</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">209.44 GW</div>
+                            <div class="stat-label">RE Capacity + Hydro</div>
+                            <div class="stat-detail">45.3% of total capacity</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">1,371.03 BUs</div>
+                            <div class="stat-label">Overall Generation</div>
+                            <div class="stat-detail">Apr'24 - Dec'24</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">68.48%</div>
+                            <div class="stat-label">Avg Thermal PLFs</div>
+                            <div class="stat-detail">Apr'24 - Dec'24</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="transmission">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">4,91,504 ckm</div>
+                            <div class="stat-label">Transmission Lines</div>
+                            <div class="stat-detail">As on Dec 2024</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">5,960 ckm</div>
+                            <div class="stat-label">Capacity Addition</div>
+                            <div class="stat-detail">Apr'24 - Dec'24</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">12,97,405 MVA</div>
+                            <div class="stat-label">Substation Capacity</div>
+                            <div class="stat-detail">As on Dec 2024</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">4.50%</div>
+                            <div class="stat-label">CAGR Growth</div>
+                            <div class="stat-detail">FY16 to FY24</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="distribution">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">1,626 BUs</div>
+                            <div class="stat-label">Total Demand</div>
+                            <div class="stat-detail">FY 2024</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">250 GW</div>
+                            <div class="stat-label">Peak Demand</div>
+                            <div class="stat-detail">Apr'24 - Dec'24</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">20.81%</div>
+                            <div class="stat-label">AT&C Loss</div>
+                            <div class="stat-detail">As per UDAY Dashboard</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">₹1.00/unit</div>
+                            <div class="stat-label">ACS - ARR Gap</div>
+                            <div class="stat-detail">As per UDAY Dashboard</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="consumption">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">21.45 Cr</div>
+                            <div class="stat-label">Electrified Households</div>
+                            <div class="stat-detail">SAUBHAGYA scheme</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">1,395 kWh</div>
+                            <div class="stat-label">Per Capita Consumption</div>
+                            <div class="stat-detail">As on Mar 2024</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">41.8%</div>
+                            <div class="stat-label">Industry Sector Share</div>
+                            <div class="stat-detail">FY 2024</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">Maharashtra</div>
+                            <div class="stat-label">Top Consuming State</div>
+                            <div class="stat-detail">FY 2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Energy Flows Section -->
+    <section id="energy-flows" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-stream"></i> Energy Flows</h2>
+            </div>
+            <div class="chart-card">
+                <h3>Energy Distribution Network</h3>
+                <div class="chart-container" style="height: 500px;">
+                    <canvas id="energyFlowsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GHG Emissions Section -->
+    <section id="emissions" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-smog"></i> Sectoral GHG Emissions</h2>
+                <div class="section-controls">
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" data-emission="gross">Gross</button>
+                        <button class="toggle-btn" data-emission="net">Net</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3>Emissions by Sector</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="emissionsChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Emissions Trend (2010-2024)</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="emissionsTrendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Climate Section -->
+    <section id="climate" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-temperature-high"></i> Climate Variability - Decadal Temperature Trends</h2>
+                <div class="section-controls">
+                    <select id="tempRegionFilter" class="filter-select">
+                        <option value="all">All India</option>
+                        <option value="north">North India</option>
+                        <option value="south">South India</option>
+                        <option value="east">East India</option>
+                        <option value="west">West India</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Temperature Change (°C) - Interactive Zoom & Pan</h3>
+                <div class="chart-container" style="height: 450px;">
+                    <canvas id="temperatureChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Water Resources Section -->
+    <section id="water" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-tint"></i> Water Resources</h2>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3>Ground Water Resources Assessment</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="groundWaterChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Annual Per Capita Water Availability</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="waterAvailabilityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Land Cover Section -->
+    <section id="land" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-tree"></i> Land Cover Distribution</h2>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3>Land Use Composition</h3>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="landCoverChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Biodiversity Hotspots</h3>
+                    <div class="biodiversity-info">
+                        <div class="biodiversity-stat">
+                            <h4>4 out of 36</h4>
+                            <p>Globally identified biodiversity hotspots</p>
+                        </div>
+                        <div class="hotspots-list">
+                            <div class="hotspot-item">
+                                <i class="fas fa-mountain"></i>
+                                <span>Himalaya</span>
+                            </div>
+                            <div class="hotspot-item">
+                                <i class="fas fa-leaf"></i>
+                                <span>Northeastern India & Andaman Islands</span>
+                            </div>
+                            <div class="hotspot-item">
+                                <i class="fas fa-water"></i>
+                                <span>Nicobar Islands</span>
+                            </div>
+                            <div class="hotspot-item">
+                                <i class="fas fa-tree"></i>
+                                <span>Western Ghats</span>
+                            </div>
+                        </div>
+                        <div class="biodiversity-stats-grid">
+                            <div class="bio-stat">
+                                <div class="bio-stat-value">~8%</div>
+                                <div class="bio-stat-label">India's share in global biodiversity</div>
+                            </div>
+                            <div class="bio-stat">
+                                <div class="bio-stat-value">6th</div>
+                                <div class="bio-stat-label">Ranking in species endemicity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Economy Section -->
+    <section id="economy" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line"></i> Economy - Gross Domestic Product</h2>
+                <div class="section-controls">
+                    <div class="year-slider-container">
+                        <label for="yearSlider">Year: <span id="yearDisplay">2024</span></label>
+                        <input type="range" id="yearSlider" min="2015" max="2024" value="2024" step="1">
+                    </div>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>GDP Comparison: Constant Price vs Current Price (Lakh Crore ₹)</h3>
+                <div class="chart-container" style="height: 450px;">
+                    <canvas id="gdpChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demographics Section -->
+    <section id="demographics" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> Demographics (2024)</h2>
+            </div>
+
+            <div class="demo-header-stats">
+                <div class="demo-stat-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>1.443 Billion</h3>
+                    <p>Total Population</p>
+                </div>
+                <div class="demo-stat-card">
+                    <i class="fas fa-city"></i>
+                    <h3>35.4%</h3>
+                    <p>Urbanization Rate</p>
+                </div>
+                <div class="demo-stat-card">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>1020:1000</h3>
+                    <p>Female to Male Ratio</p>
+                </div>
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3>Population Pyramid</h3>
+                    <div class="chart-container" style="height: 450px;">
+                        <canvas id="populationPyramidChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>State Demographics Comparison</h3>
+                    <div class="chart-container" style="height: 450px;">
+                        <canvas id="stateDemographicsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-highlights">
+                <div class="demo-highlight-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Most Populous State</h4>
+                    <div class="highlight-value">Uttar Pradesh</div>
+                    <p>23.80 crore (17% of India's population)</p>
+                </div>
+                <div class="demo-highlight-card">
+                    <i class="fas fa-compress-arrows-alt"></i>
+                    <h4>Highest Population Density</h4>
+                    <div class="highlight-value">Delhi</div>
+                    <p>14,667 persons/sq.km</p>
+                </div>
+                <div class="demo-highlight-card">
+                    <i class="fas fa-building"></i>
+                    <h4>Most Urbanized State</h4>
+                    <div class="highlight-value">Kerala</div>
+                    <p>77.4% urbanization</p>
+                </div>
+                <div class="demo-highlight-card">
+                    <i class="fas fa-female"></i>
+                    <h4>Highest Female Ratio</h4>
+                    <div class="highlight-value">Kerala</div>
+                    <p>1082 females per 1000 males</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <p>Interactive dashboard for India's climate action, renewable energy progress, and sustainable development indicators based on Updated NDC data.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#renewable-energy">Renewable Energy</a></li>
+                        <li><a href="#power-sector">Power Sector</a></li>
+                        <li><a href="#emissions">Emissions</a></li>
+                        <li><a href="#climate">Climate Data</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Data Sources</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Download Reports</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 India Climate & Energy Dashboard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>
